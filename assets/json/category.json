@@ -2,15 +2,15 @@
     "category": [
         {
             "image": "food.png",
-            "text": "Foods"
+            "text": "Ração"
         },
         {
             "image": "accesories.png",
-            "text": "Accesories"
+            "text": "Acessórios"
         },
         {
             "image": "toy.png",
-            "text": "Toys"
+            "text": "Brinquedos"
         }
     ]
 }
