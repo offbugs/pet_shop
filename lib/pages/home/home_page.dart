@@ -111,16 +111,15 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(
-                dataProduct.length,
-                (index) => Padding(
-                  padding: index == 0
-                      ? EdgeInsets.only(left: 20, right: 20)
-                      : EdgeInsets.only(right: 20),
-                  child: ProductItem(
-                    product: dataProduct[index],
-                  ),
-                ),
-              ),
+                  dataProduct.length,
+                  (index) => Padding(
+                        padding: index == 0
+                            ? const EdgeInsets.only(left: 20, right: 20)
+                            : const EdgeInsets.only(right: 20),
+                        child: ProductItem(
+                          product: dataProduct[index],
+                        ),
+                      )),
             ),
           ),
         ],
