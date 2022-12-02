@@ -15,7 +15,7 @@ class MyAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "mop Petshop",
+            "mop Catshop",
             style: fStyle1,
           ),
           Icon(

@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 class ProductModel {
   String? image, name, description, category;
@@ -6,22 +6,21 @@ class ProductModel {
   Color? color;
   int? id;
 
-  ProductModel({
-    required this.price,
-    required this.image,
-    required this.id,
-    required this.color,
-    required this.category,
-    required this.name,
-    required this.description,
-  });
-
+  ProductModel(
+      {required this.price,
+      required this.image,
+      required this.id,
+      required this.color,
+      required this.category,
+      required this.name,
+      required this.description});
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    color = json['color'];
+    color = getColor(json['color']);
     category = json['category'];
-    price = json['price'];
+    price = double.parse(json['price'].toString());
+
     description = json['description'];
     image = json['image'];
   }
