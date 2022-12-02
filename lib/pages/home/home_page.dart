@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -11,6 +9,7 @@ import 'package:pet_shop/style_text.dart';
 import 'package:pet_shop/widgets/category.dart';
 import 'package:pet_shop/widgets/my_search.dart';
 import 'package:pet_shop/widgets/product.dart';
+import 'package:pet_shop/widgets/special.dart';
 
 import '../../models/category_model.dart';
 import '../../models/product_model.dart';
@@ -78,12 +77,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
             const SizedBox(height: 50),
-            MyAppBar(),
+            const MyAppBar(),
             const SizedBox(height: 30),
-            MySearch(),
+            const MySearch(),
             const SizedBox(height: 20),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -92,8 +90,8 @@ class _HomePageState extends State<HomePage> {
                   dataCategory.length,
                   (index) => Padding(
                     padding: index == 0
-                        ? EdgeInsets.only(left: 20, right: 20)
-                        : EdgeInsets.only(right: 20),
+                        ? const EdgeInsets.only(left: 20, right: 20)
+                        : const EdgeInsets.only(right: 20),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -111,7 +109,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -143,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -159,78 +157,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 150,
-              width: MediaQuery.of(context).size.width - 40,
-              child: Stack(
-                children: [
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      height: 130,
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: purple.withOpacity(0.5)),
-                    ),
-                  ),
-                  Positioned(
-                    top: 2,
-                    left: -10,
-                    child: Transform.rotate(
-                      angle: -0.15,
-                      child: Image.asset(
-                        'assets/foods/meow-mix1.png',
-                        height: 120,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 7,
-                    left: 50,
-                    child: Transform.rotate(
-                      angle: 0.3,
-                      child: Image.asset(
-                        'assets/foods/authority1.png',
-                        height: 120,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 20,
-                    child: Transform.rotate(
-                      angle: 0,
-                      child: Image.asset(
-                        'assets/foods/royal-canin1.png',
-                        height: 120,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 190,
-                    top: 30,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Pacote Especial',
-                          style: fStyle8,
-                        ),
-                        Text(
-                          'Promoção \nTrês em um',
-                          style: fStyle9,
-                        ),
-                        Text(
-                          'R\$${(40.00).toStringAsFixed(2)}',
-                          style: fStyle10,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
+            const SpecialOfer()
           ],
         ),
       ),
