@@ -90,7 +90,7 @@ class ProductItem extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: green,
+                  color: deepPurple,
                   shape: BoxShape.circle,
                 ),
                 child: Center(

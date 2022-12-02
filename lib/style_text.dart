@@ -20,3 +20,11 @@ var fStyle6 = GoogleFonts.poppins(
 
 var fStyle7 = GoogleFonts.poppins(
     fontSize: 22, color: white, fontWeight: FontWeight.w400);
+
+var fStyle8 = GoogleFonts.poppins(
+    fontSize: 16, color: deepPurple, fontWeight: FontWeight.w800);
+
+var fStyle9 = GoogleFonts.poppins(fontSize: 14, color: white);
+
+var fStyle10 = GoogleFonts.poppins(
+    fontSize: 20, color: purple, fontWeight: FontWeight.w600);
