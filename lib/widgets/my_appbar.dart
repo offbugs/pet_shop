@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pet_shop/const.dart';
+import 'package:pet_shop/pages/cart/cart.dart';
 import 'package:pet_shop/style_text.dart';
 
 class MyAppBar extends StatelessWidget {
@@ -18,9 +19,15 @@ class MyAppBar extends StatelessWidget {
             "mop Catshop",
             style: fStyle1,
           ),
-          Icon(
-            Icons.shopping_cart_outlined,
-            color: black,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CartPage()));
+            },
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              color: black,
+            ),
           )
         ],
       ),

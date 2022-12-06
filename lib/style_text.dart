@@ -36,3 +36,8 @@ var fStyle12 = GoogleFonts.poppins(
 
 var fStyle13 = GoogleFonts.poppins(
     fontSize: 16, color: white, fontWeight: FontWeight.w500);
+
+var fStyle14 = GoogleFonts.poppins(fontSize: 14, color: black);
+
+var fStyle15 = GoogleFonts.poppins(
+    fontSize: 14, color: black, fontWeight: FontWeight.w600);

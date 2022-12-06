@@ -31,6 +31,11 @@ class _DetailPageState extends State<DetailPage> {
             size: 18,
           ),
         ),
+        title: Text(
+          'Detalhes',
+          style: fStyle4,
+        ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
