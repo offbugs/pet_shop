@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_shop/const.dart';
+import 'package:pet_shop/pages/details/detail.dart';
 
 import 'package:pet_shop/widgets/my_appbar.dart';
 import 'package:pet_shop/style_text.dart';
@@ -133,8 +134,17 @@ class _HomePageState extends State<HomePage> {
                           padding: index == 0
                               ? const EdgeInsets.only(left: 20, right: 20)
                               : const EdgeInsets.only(right: 20),
-                          child: ProductItem(
-                            product: dataProduct[index],
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailPage(
+                                          product: dataProduct[index])));
+                            },
+                            child: ProductItem(
+                              product: dataProduct[index],
+                            ),
                           ),
                         )),
               ),
@@ -161,38 +171,41 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: deepPurple,
-          unselectedItemColor: grey,
-          type: BottomNavigationBarType.fixed,
-          onTap: (value) {
-            setState(() {
-              selectedPage = value;
-            });
-          },
-          items: List.generate(
-              icons.length,
-              (index) => BottomNavigationBarItem(
-                  icon: Column(
-                    children: [
-                      Icon(
-                        icons[index],
-                        color: selectedPage == index ? deepPurple : grey,
-                      ),
-                      const SizedBox(height: 5),
-                      selectedPage == index
-                          ? Container(
-                              width: 18,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: deepPurple,
-                              ),
-                            )
-                          : Container()
-                    ],
-                  ),
-                  label: ''))),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+        child: BottomNavigationBar(
+            selectedItemColor: deepPurple,
+            unselectedItemColor: grey,
+            type: BottomNavigationBarType.fixed,
+            onTap: (value) {
+              setState(() {
+                selectedPage = value;
+              });
+            },
+            items: List.generate(
+                icons.length,
+                (index) => BottomNavigationBarItem(
+                    icon: Column(
+                      children: [
+                        Icon(
+                          icons[index],
+                          color: selectedPage == index ? deepPurple : grey,
+                        ),
+                        const SizedBox(height: 5),
+                        selectedPage == index
+                            ? Container(
+                                width: 18,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: deepPurple,
+                                ),
+                              )
+                            : Container()
+                      ],
+                    ),
+                    label: ''))),
+      ),
     );
   }
 }
