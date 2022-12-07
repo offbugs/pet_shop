@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_shop/models/product_model.dart';
 
 import '../models/cart_model.dart';
 
@@ -9,5 +10,39 @@ class CartProvider with ChangeNotifier {
   set carts(List<CartModel> carts) {
     _carts = carts;
     notifyListeners();
+  }
+
+  addCart(ProductModel product, int quantity) {
+    if (productExist(product)) {
+      int index =
+          _carts.indexWhere((element) => element.product!.id == product.id);
+      _carts[index].quantity = _carts[index].quantity! + quantity;
+    } else {
+      _carts.add(
+          CartModel(id: _carts.length, product: product, quantity: quantity));
+    }
+    notifyListeners();
+  }
+
+  removeCart(int id) {
+    _carts.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  productExist(ProductModel product) {
+    if (_carts.indexWhere((element) => element.product!.id == product.id) ==
+        -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  totalPrice() {
+    double total = 0;
+    for (var element in _carts) {
+      total += (element.quantity! * element.product!.price!);
+    }
+    return total;
   }
 }

@@ -3,7 +3,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pet_shop/const.dart';
 
 import 'package:pet_shop/pages/cart/cart_item.dart';
+import 'package:pet_shop/provider/cart_provider.dart';
 import 'package:pet_shop/style_text.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -42,26 +45,27 @@ class _CartPageState extends State<CartPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text.rich(TextSpan(children: [
               TextSpan(
-                text: ' 3 ',
+                text: '${cartProvider.carts.length}',
                 style: fStyle6,
               ),
               TextSpan(
-                text: ' Itens ',
+                text: cartProvider.carts.length > 1 ? ' Itens ' : ' Item ',
                 style: fStyle6,
               ),
             ])),
           ),
 
           //CARD ***************************************************************
+          SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                   children: List.generate(
-                      3,
+                      cartProvider.carts.length,
                       (index) => Padding(
-                            padding: EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.only(bottom: 15),
                             child: Container(
                               height: 105,
                               decoration: BoxDecoration(
@@ -73,7 +77,10 @@ class _CartPageState extends State<CartPage> {
                                       motion: const BehindMotion(),
                                       children: [
                                         SlidableAction(
-                                          onPressed: (context) {},
+                                          onPressed: (context) {
+                                            cartProvider.removeCart(
+                                                cartProvider.carts[index].id!);
+                                          },
                                           icon: Icons.delete_outline_rounded,
                                           foregroundColor: Colors.red,
                                           autoClose: true,
@@ -84,15 +91,17 @@ class _CartPageState extends State<CartPage> {
                                                   right: Radius.circular(20)),
                                         )
                                       ]),
-                                  child: const CartItem()),
+                                  child: CartItem(
+                                      cart: cartProvider.carts[index])),
                             ),
                           ))),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 265,
+      bottomNavigationBar: AnimatedContainer(
+        duration: const Duration(seconds: 2),
+        height: cartProvider.carts.isNotEmpty ? 265 : 0,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           color: white,
@@ -108,64 +117,74 @@ class _CartPageState extends State<CartPage> {
         child: Padding(
           padding:
               const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 30),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '3 Itens',
-                    style: fStyle6,
-                  ),
-                  Text(
-                    'R\$${(14.00).toStringAsFixed(2)}',
-                    style: fStyle6,
-                  )
-                ],
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Tax',
-                    style: fStyle6,
-                  ),
-                  Text(
-                    'R\$${(14.00).toStringAsFixed(2)}',
-                    style: fStyle6,
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total',
-                    style: fStyle4,
-                  ),
-                  Text(
-                    'R\$${(14.00).toStringAsFixed(2)}',
-                    style: fStyle4,
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: deepPurple,
-                  borderRadius: BorderRadius.circular(15),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text.rich(TextSpan(children: [
+                      TextSpan(
+                        text: '${cartProvider.carts.length}',
+                        style: fStyle6,
+                      ),
+                      TextSpan(
+                        text: cartProvider.carts.length > 1
+                            ? ' Itens '
+                            : ' Item ',
+                        style: fStyle6,
+                      )
+                    ])),
+                    Text(
+                      'R\$${(cartProvider.totalPrice()).toStringAsFixed(2)}',
+                      style: fStyle6,
+                    )
+                  ],
                 ),
-                child: Center(
-                  child: Text(
-                    'Concluir',
-                    style: fStyle13,
-                  ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tax',
+                      style: fStyle6,
+                    ),
+                    Text(
+                      'R\$${(cartProvider.totalPrice() * 0.1).toStringAsFixed(2)}',
+                      style: fStyle6,
+                    ),
+                  ],
                 ),
-              )
-            ],
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total',
+                      style: fStyle4,
+                    ),
+                    Text(
+                      'R\$${(cartProvider.totalPrice() * 1.1).toStringAsFixed(2)}',
+                      style: fStyle4,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: deepPurple,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Concluir',
+                      style: fStyle13,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

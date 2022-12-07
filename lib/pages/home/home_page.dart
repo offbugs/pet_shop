@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_shop/const.dart';
 import 'package:pet_shop/pages/details/detail.dart';
+import 'package:pet_shop/provider/cart_provider.dart';
 
 import 'package:pet_shop/widgets/my_appbar.dart';
 import 'package:pet_shop/style_text.dart';
@@ -11,6 +12,7 @@ import 'package:pet_shop/widgets/category.dart';
 import 'package:pet_shop/widgets/my_search.dart';
 import 'package:pet_shop/widgets/product.dart';
 import 'package:pet_shop/widgets/special.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/category_model.dart';
 import '../../models/product_model.dart';
@@ -75,6 +77,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

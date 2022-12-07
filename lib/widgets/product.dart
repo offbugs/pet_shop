@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_shop/const.dart';
 import 'package:pet_shop/models/product_model.dart';
+import 'package:pet_shop/provider/cart_provider.dart';
 import 'package:pet_shop/style_text.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
@@ -11,6 +13,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return SizedBox(
       //color: blue,
       height: MediaQuery.of(context).size.height * 0.3 + 60,
@@ -87,16 +90,21 @@ class ProductItem extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: deepPurple,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Text(
-                    '+',
-                    style: fStyle7,
+              child: GestureDetector(
+                onTap: () {
+                  cartProvider.addCart(product, 1);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: deepPurple,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '+',
+                      style: fStyle7,
+                    ),
                   ),
                 ),
               ))

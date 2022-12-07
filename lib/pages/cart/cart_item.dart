@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pet_shop/const.dart';
+import 'package:pet_shop/models/cart_model.dart';
 import 'package:pet_shop/style_text.dart';
 
 class CartItem extends StatelessWidget {
+  final CartModel cart;
   const CartItem({
     Key? key,
+    required this.cart,
   }) : super(key: key);
 
   @override
@@ -32,7 +35,7 @@ class CartItem extends StatelessWidget {
               color: grey.withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.asset('assets/foods/meow-mix1.png'),
+            child: Image.asset('assets/foods/${cart.product!.image!}'),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -40,23 +43,23 @@ class CartItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Meow Mix',
+                  cart.product!.name!,
                   style: fStyle4,
                 ),
                 Text(
-                  'Meow Mix',
-                  style: fStyle14,
+                  cart.product!.category!,
+                  style: fStyle16,
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'R\$${(14.00).toStringAsFixed(2)}',
+                  'R\$${(cart.product!.price!).toStringAsFixed(2)}',
                   style: fStyle4,
                 ),
               ],
             ),
           ),
           Text(
-            '1x',
+            '${cart.quantity}x',
             style: fStyle15,
           ),
         ],

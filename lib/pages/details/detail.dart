@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_shop/const.dart';
 import 'package:pet_shop/models/product_model.dart';
+import 'package:pet_shop/provider/cart_provider.dart';
 import 'package:pet_shop/style_text.dart';
+import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {
   final ProductModel product;
@@ -17,6 +19,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -149,23 +152,29 @@ class _DetailPageState extends State<DetailPage> {
               color: grey,
             ),
             const SizedBox(width: 25),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-              decoration: BoxDecoration(
-                  color: deepPurple, borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: white,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Adicionar ao carrinho',
-                      style: fStyle13,
-                    )
-                  ],
+            GestureDetector(
+              onTap: () {
+                cartProvider.addCart(widget.product, quantity);
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                decoration: BoxDecoration(
+                    color: deepPurple, borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: white,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Adicionar ao carrinho',
+                        style: fStyle13,
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
